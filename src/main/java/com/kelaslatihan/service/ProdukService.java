@@ -1,30 +1,43 @@
 package com.kelaslatihan.service;
 
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import com.kelaslatihan.entity.Produk;
+import com.kelaslatihan.repo.ProdukRepo;
 import com.kelaslatihan.utils.RandomNumber;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ProdukService {
-    private static List<Produk> produks = new ArrayList<Produk>() {
-        {
-            add(new Produk(RandomNumber.getRandom(1000, 9999), "001", "Sabun", 1000.0));
-            add(new Produk(RandomNumber.getRandom(1000, 9999), "002", "Korek", 500.0));
-            add(new Produk(RandomNumber.getRandom(1000, 9999), "003", "Minyak Goreng", 20000.0));
-            add(new Produk(RandomNumber.getRandom(1000, 9999), "004", "Lilin", 1000.0));
-            add(new Produk(RandomNumber.getRandom(1000, 9999), "005", "Kapur", 1000.0));
-        }
-    };
+    @Autowired
+    private ProdukRepo repo;
 
-    public List<Produk> allPrd() {
-        return produks;
+    public Iterable<Produk> allPrd() {
+        return repo.findAll();
     }
 
     public void addProduk(Produk produk) {
-        produk.setId(RandomNumber.getRandom(1000, 9999));
-        produks.add(produk);
+        repo.save(produk);
+    }
+
+    public void deleteProduk(long id) {
+        repo.deleteById(id);
+
+    }
+
+    public Optional<Produk> findById(long id) {
+        return repo.findById(id);
+    }
+
+    public void updateProduk(Produk produk) {
+        repo.save(produk);
     }
 }

@@ -1,32 +1,38 @@
 package com.kelaslatihan.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.Id;
+
+@Entity
+@Table(name = "tbl_product")
 public class Produk {
-  private Long id;
-  private String code;
-  private String name;
-  private double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  public Produk(){
+    @Column(length = 10, nullable = false, unique = true)
+    private String code;
+    @Column(length = 150, nullable = false)
+    private String name;
 
-  }
-  public Produk(Long id, String code, String name, double price){
-    this.id = id;
-    this.code = code;
-    this.name = name;
-    this.price = price;
-  }
+    private double price;
 
+    public Produk() {
+        
+    }
 
     public Long getId() {
         return id;
     }
 
-   
     public void setId(Long id) {
         this.id = id;
     }
 
-   
     public String getCode() {
         return code;
     }
@@ -35,21 +41,17 @@ public class Produk {
         this.code = code;
     }
 
-   
     public String getName() {
         return name;
     }
 
- 
     public void setName(String name) {
         this.name = name;
     }
 
-
     public double getPrice() {
         return price;
     }
-
 
     public void setPrice(double price) {
         this.price = price;
