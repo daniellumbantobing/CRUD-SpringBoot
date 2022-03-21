@@ -22,7 +22,7 @@ public class Produk {
     private double price;
 
     public Produk() {
-        
+
     }
 
     public Long getId() {

@@ -1,6 +1,6 @@
 package com.kelaslatihan.controller;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.kelaslatihan.dto.SearchFromData;
 import com.kelaslatihan.entity.Produk;
 import com.kelaslatihan.service.ProdukService;
 
@@ -24,6 +24,7 @@ public class HomeController {
 
         String messsage = "Hello World";
         model.addAttribute("message", messsage);
+        model.addAttribute("searchData", new SearchFromData());
         model.addAttribute("produk", produkService.allPrd());
         return "index";
     }
@@ -59,4 +60,15 @@ public class HomeController {
         produkService.updateProduk(produk);
         return "redirect:/";
     }
+
+    @GetMapping("/search")
+    public String Search(SearchFromData searchFromData, Model model) {
+        String messsage = "Hello World";
+        model.addAttribute("message", messsage);
+        model.addAttribute("searchData", searchFromData);
+        model.addAttribute("produk", produkService.findByName(searchFromData.getKeyword()));
+
+        return "index";
+    }
+
 }

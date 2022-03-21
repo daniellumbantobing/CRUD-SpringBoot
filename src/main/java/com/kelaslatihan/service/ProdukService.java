@@ -40,4 +40,8 @@ public class ProdukService {
     public void updateProduk(Produk produk) {
         repo.save(produk);
     }
+
+    public List<Produk> findByName(String keyword) {
+        return repo.findByNameContains(keyword);
+    }
 }
